@@ -40,4 +40,17 @@ class User extends Authenticatable
         $hash =md5(strtolower(trim($this->attributes['email'])));
         return "http://www.gravatar.com/avatar/$hash?s=$size";
     }
+
+    //用户-微博一对多关联
+    public function statuses()
+    {
+        return $this->hasMany(Status::class);
+    }
+
+    //动态流原型
+    public function feed()
+    {
+        return $this->statuses()
+                    ->orderBy('created_at', 'desc');
+    }
 }

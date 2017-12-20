@@ -29,7 +29,8 @@ class UsersController extends Controller
     //定义show方法
 
     public function show(User $user){
-        return view('users.show', compact('user'));
+        $statuses = $user->statuses()->orderBy('created_at','desc')->paginate(30);
+        return view('users.show', compact('user','statuses'));
     }
 
     //定义stroe方法
