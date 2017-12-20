@@ -125,4 +125,11 @@ class UsersController extends Controller
         session()->flash('success','恭喜，激活成功');
         return redirect()->route('users.show',[$user]);
     }
+
+    //发送重置密码通知
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new(ResetPassword($token)));
+    }
 }
