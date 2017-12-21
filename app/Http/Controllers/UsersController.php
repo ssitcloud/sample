@@ -133,4 +133,19 @@ class UsersController extends Controller
     {
         $this->notify(new ResetPassword($token));
     }
+
+    //显示关注和粉丝
+    public function followings(User $user)
+    {
+        $users = $user->followings()->paginate(5);
+        $title = '关注的人';
+        return view('users.show_follow', compact('users', 'title'));
+    }
+
+    public function followers(User $user)
+    {
+        $users = $user->followers()->paginate(5);
+        $title = '粉丝';
+        return view('users.show_follow', compact('users', 'title'));
+    }
 }
